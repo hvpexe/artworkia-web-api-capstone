@@ -1,0 +1,154 @@
+version: '3.4'
+
+networks:
+    artworkianetwork:
+    elastic:
+        driver: bridge
+volumes:
+    sqlserver_data:
+    data:
+        driver: local
+services:
+    artworkiadb:
+        container_name: artworkiadb
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        ports:
+            - 8022:1433
+        environment:
+            - ACCEPT_EULA=Y
+            - MSSQL_SA_PASSWORD=Matkhausieumanh123
+        # volumes:
+        #     - sqlserver_data:/var/opt/mssql/
+        restart: unless-stopped
+        networks:
+            - artworkianetwork
+    webapi:
+        container_name: webapi
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Staging
+            - ASPNETCORE_URLS=http://+:80
+        restart: unless-stopped
+        ports:
+            - 80:80
+            # - 443:443
+        volumes:
+          # - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+            - ./ssl_cer:/https:ro
+        image: ${DOCKER_REGISTRY-}webapi
+        build:
+            context: .
+            dockerfile: src/WebApi/Dockerfile
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "100m"
+                max-file: "5"
+        depends_on:
+            artworkiadb:
+                condition: service_started
+            elasticsearch:
+                condition: service_healthy  
+
+        networks:
+            - artworkianetwork
+    elasticsearch:
+        container_name: elasticsearch
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.17.16
+        healthcheck:
+            test: ["CMD", "curl", "-f", "http://elasticsearch:9200/_cluster/health?wait_for_status=green&timeout=1s"]
+            interval: 30s
+            timeout: 10s
+            retries: 5
+            start_period: 15s
+            start_interval: 5s
+        ports:
+            - 9200:9200
+            - 9300:9300
+        volumes: 
+            # - data:/usr/share/elasticsearch/data
+            - ./elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,Z    
+        restart: unless-stopped
+        environment:
+            - node.name=elasticsearch
+            - cluster.name=es-docker-cluster
+            - network.host=0.0.0.0
+            - discovery.type=single-node
+            - xpack.security.enabled=true
+            - ELASTIC_PASSWORD=Matkhausieumanh123
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+            - xpack.license.self_generated.type=basic 
+ 
+            - xpack.security.enabled=false
+            - xpack.security.http.ssl.enabled=false
+            - xpack.security.transport.ssl.enabled=false
+            # - xpack.security.http.ssl.enabled=true
+            # - xpack.security.http.ssl.verification_mode=certificate
+            # - xpack.security.http.ssl.key=/usr/share/elasticsearch/config/certificates/es/es.key
+            # - xpack.security.http.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
+            # - xpack.security.http.ssl.certificate=/usr/share/elasticsearch/config/certificates/es/es.crt
+
+            # - xpack.security.transport.ssl.enabled=true
+            # - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/certificates/es/es.key
+            # - xpack.security.transport.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
+            # - xpack.security.transport.ssl.certificate=/usr/share/elasticsearch/config/certificates/es/es.crt
+     
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "100m"
+                max-file: "5"
+        networks:
+            - artworkianetwork
+    kibana:
+        container_name: kibana
+        image: docker.elastic.co/kibana/kibana:7.17.16
+        restart: unless-stopped
+        environment:
+            - node.name=kibana
+            - server.name=kibana
+            - server.host=0.0.0.0 
+            - cluster.name=es-docker-cluster
+            - ELASTICSEARCH_URL=http://elasticsearch:9200
+            - ELASTICSEARCH_USERNAME=elastic
+            - ELASTICSEARCH_PASSWORD=Matkhausieumanh123
+            # - ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES=/usr/share/kibana/config/ca.crt
+            # - ELASTICSEARCH_SSL_CERTIFICATE=/usr/share/kibana/config/es.crt
+            # - ELASTICSEARCH_SSL_KEY=/usr/share/kibana/config/es.key
+            # - ELASTICSEARCH_SSL_VERIFICATIONMODE=certificate
+            # - monitoring.ui.container.elasticsearch.enabled=true
+            # - monitoring.ui.container.logstash.enabled=true
+
+            # - SERVER_SSL_ENABLED=false
+            # - SERVER_SSL_CERTIFICATE=/usr/share/kibana/config/es.crt
+            # - SERVER_SSL_KEY=/usr/share/kibana/config/es.key
+        ports:
+            - 5601:5601
+        networks:
+            - artworkianetwork
+        depends_on:
+            - elasticsearch
+    # logstash:
+    #     container_name: logstash
+    #     image: docker.elastic.co/logstash/logstash:7.17.16
+    #     restart: unless-stopped
+    #     volumes:
+    #         - ./jdbc/mssql-jdbc-12.4.2.jre11.jar:/usr/share/logstash/logstash-core/lib/jars/mssql-jdbc-12.4.2.jre11.jar
+    #         - ./logstash_dir/artwork_config.conf:/usr/share/logstash/pipeline/logstash.conf
+    #     command: >
+    #         bash -c "
+    #         touch /usr/share/logstash/.logstash_jdbc_last_run_artwork && 
+    #         logstash -f /usr/share/logstash/pipeline/logstash.conf"
+    #     logging:
+    #         driver: "json-file"
+    #         options:
+    #             max-size: "100m"
+    #             max-file: "5"
+    #     ports:
+    #         - 9600:9600
+    #     environment:
+    #         LS_JAVA_OPTS: "-Xms256m -Xmx256m" 
+    #     networks:
+    #         - artworkianetwork
+    #     depends_on:
+    #         - elasticsearch
+    #         - artworkiadb
