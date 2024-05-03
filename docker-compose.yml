@@ -28,9 +28,8 @@ services:
             - ASPNETCORE_ENVIRONMENT=Staging
             - ASPNETCORE_URLS=http://+:80
         restart: unless-stopped
-        ports:
-            - 80:80
-            # - 443:443
+        expose:
+            - "80"
         volumes:
           # - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
             - ./ssl_cer:/https:ro
@@ -127,28 +126,19 @@ services:
             - artworkianetwork
         depends_on:
             - elasticsearch
-    # logstash:
-    #     container_name: logstash
-    #     image: docker.elastic.co/logstash/logstash:7.17.16
-    #     restart: unless-stopped
-    #     volumes:
-    #         - ./jdbc/mssql-jdbc-12.4.2.jre11.jar:/usr/share/logstash/logstash-core/lib/jars/mssql-jdbc-12.4.2.jre11.jar
-    #         - ./logstash_dir/artwork_config.conf:/usr/share/logstash/pipeline/logstash.conf
-    #     command: >
-    #         bash -c "
-    #         touch /usr/share/logstash/.logstash_jdbc_last_run_artwork && 
-    #         logstash -f /usr/share/logstash/pipeline/logstash.conf"
-    #     logging:
-    #         driver: "json-file"
-    #         options:
-    #             max-size: "100m"
-    #             max-file: "5"
-    #     ports:
-    #         - 9600:9600
-    #     environment:
-    #         LS_JAVA_OPTS: "-Xms256m -Xmx256m" 
-    #     networks:
-    #         - artworkianetwork
-    #     depends_on:
-    #         - elasticsearch
-    #         - artworkiadb
+
+    nginx:
+        container_name: nginx
+        image: nginx:latest
+        restart: always
+        ports:
+            - 80:80
+            - 443:443
+        volumes:
+            - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+            - ./nginx/localhost.crt:/etc/ssl/certs/localhost.crt
+            - ./nginx/localhost.key:/etc/ssl/private/localhost.key
+        networks:
+            - artworkianetwork
+        depends_on:
+            - webapi

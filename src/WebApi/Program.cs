@@ -2,6 +2,7 @@ using Application;
 using Application.Commons;
 using Application.Services.ELK;
 using Infrastructure;
+using Microsoft.AspNetCore.HttpOverrides;
 using System.Text.Json.Serialization;
 using WebApi;
 using WebApi.Extensions;
@@ -60,7 +61,11 @@ var app = builder.Build();
 
 app.UseOpenApi(); // use swagger
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection(); 
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
 
 app.UseStaticFiles(); // Use static files
 
