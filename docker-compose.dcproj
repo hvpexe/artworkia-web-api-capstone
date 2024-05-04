@@ -13,6 +13,9 @@
     <None Include="docker-compose.yml" />
     <None Include=".dockerignore" />
     <None Include="elasticsearch\elasticsearch.yml" />
+    <None Include="nginx\localhost.conf" />
+    <None Include="nginx\localhost.crt" />
+    <None Include="nginx\localhost.key" />
     <None Include="nginx\nginx.conf" />
   </ItemGroup>
 </Project>

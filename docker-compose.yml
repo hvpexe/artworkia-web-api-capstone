@@ -8,6 +8,9 @@ volumes:
     sqlserver_data:
     data:
         driver: local
+    caddy_data:
+    caddy_config:
+
 services:
     artworkiadb:
         container_name: artworkiadb
@@ -127,17 +130,18 @@ services:
         depends_on:
             - elasticsearch
 
-    nginx:
-        container_name: nginx
-        image: nginx:latest
-        restart: always
+    caddy:
+        image: caddy:latest
+        restart: unless-stopped
         ports:
-            - 80:80
-            - 443:443
+          - "80:80"
+          - "443:443"
+          - "443:443/udp"
         volumes:
-            - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-            - ./nginx/localhost.crt:/etc/ssl/certs/localhost.crt
-            - ./nginx/localhost.key:/etc/ssl/private/localhost.key
+          - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+          # - ./caddy/site:/srv
+          # - caddy_data:/data
+          # - caddy_config:/config
         networks:
             - artworkianetwork
         depends_on:

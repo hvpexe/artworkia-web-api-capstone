@@ -1,0 +1,3 @@
+zenzen.us.to {
+    reverse_proxy webapi:80
+}
