@@ -10,6 +10,7 @@
     <DockerServiceName>webapi</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="caddy\Caddyfile" />
     <None Include="docker-compose.yml" />
     <None Include=".dockerignore" />
     <None Include="elasticsearch\elasticsearch.yml" />
