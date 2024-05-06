@@ -140,8 +140,8 @@ services:
         volumes:
           - ./caddy/Caddyfile:/etc/caddy/Caddyfile
           # - ./caddy/site:/srv
-          # - caddy_data:/data
-          # - caddy_config:/config
+          - caddy_data:/data
+          - caddy_config:/config
         networks:
             - artworkianetwork
         depends_on:

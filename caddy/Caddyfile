@@ -1,3 +1,7 @@
+{
+	email phuhuynh923@gmail.com
+}
+
 zenzen.click {
     reverse_proxy webapi:80
 }
