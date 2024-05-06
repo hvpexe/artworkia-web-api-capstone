@@ -5,3 +5,7 @@
 zenzen.click {
     reverse_proxy webapi:80
 }
+
+localhost {
+    reverse_proxy webapi:80
+}

@@ -1,4 +1,5 @@
-﻿using Domain.Entitites;
+﻿using Application.Commons;
+using Domain.Entitites;
 using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -108,11 +109,11 @@ public class AccountConfiguration : IEntityTypeConfiguration<Account>
             new Account()
             {
                 Id = Guid.Parse("00000000-0000-0000-0000-000000000005"),
-                Username = "phuhuynh",
+                Username = "trieuhan",
                 Password = "A5tzNn90k1cgMCIWicwomDz/Wb1/BAWIDIVelEKhM6lHvuwh", //Matkhausieumanh123
-                Fullname = "Huỳnh Vạn Phú",
-                Email = "phuhuynh923@gmail.com",
-                Bio = "Tôi là Huỳnh Vạn Phú, tôi là một nghệ sĩ đầy tài năng",
+                Fullname = "Triệu Ngọc Hân",
+                Email = "trieuhan@gmail.com",
+                Bio = "",
                 Avatar = "https://i.pinimg.com/736x/81/3c/57/813c57fcb969d58fac1672594da05532.jpg",
                 Birthdate = DateTime.Parse("2002-5-6"),
                 Role = RoleEnum.CommonUser,
@@ -409,20 +410,21 @@ public class AccountConfiguration : IEntityTypeConfiguration<Account>
             {
                 Id = Guid.Parse("00000000-0000-0000-0000-000000000018"),
                 Username = "minhhuy",
-                Password = "A5tzNn90k1cgMCIWicwomDz/Wb1/BAWIDIVelEKhM6lHvuwh", //Matkhausieumanh123
+                Password = "qhtdkbvegr".Hash(),
                 Fullname = "Trần Nguyễn Minh Huy",
                 Email = "minhhuy@example.com",
                 Bio = "Living and working in Japan / big fan of Key (Kagikko - 鍵っ子). A guy of social, cultural, and natural.",
-                Avatar = "https://i.pinimg.com/564x/af/65/88/af6588a1cb6be3602190e4c223b79318.jpg",
+                Avatar = "https://scontent.fsgn5-15.fna.fbcdn.net/v/t39.30808-6/435670863_1846947755754490_8269400988884068525_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeGtVla0aFp8GQpYdHlvHPoBXBMoLXmitndcEygteaK2d_IE6Bsv4sjggWL8GWzMnbQ6cO0QOBUAlbeVenCd9Vb_&_nc_ohc=rx2PrR5abt4Q7kNvgEva5Q1&_nc_ht=scontent.fsgn5-15.fna&oh=00_AfCPsoKdAw2gAGCA5n_F24XaQcK14oAbWmtYlFKgWhB6Gw&oe=663E943A",
             },
 
+            
             // account 25
             new Account()
             {
                 Id = Guid.Parse("00000000-0000-0000-0000-000000000019"),
                 Username = "manhkbrady",
-                Password = "A5tzNn90k1cgMCIWicwomDz/Wb1/BAWIDIVelEKhM6lHvuwh", //Matkhausieumanh123
-                Fullname = "Nguyễn Đức Mạnh",
+                Password = "qhtdkbvegr".Hash(),
+                Fullname = "Mạnh",
                 Email = "manhkbrady@example.com",
                 Bio = "Nole của công ty NaiNovel - công ty game đầu hàng Việt Nam",
                 Avatar = "https://i.pinimg.com/564x/d9/03/0a/d9030a5696d2507a1dfb38a686ac93c2.jpg",
