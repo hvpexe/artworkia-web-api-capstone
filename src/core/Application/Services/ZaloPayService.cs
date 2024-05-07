@@ -17,7 +17,7 @@ public class ZaloPayService : IZaloPayService
     private const string TopupUrl = "/v2/disbursement/topup";
     private const string QueryMerchantBalanceUrl = "/v2/disbursement/balance";
 
-    private const string ServerBaseUrl = "https://huynhvanphu.id.vn";
+    private const string ServerBaseUrl = "https://zenzen.click";
     private const string CallbackUrl = "/api/payments/callback";
 
     private readonly ZaloPayConfiguration _zaloPayConfig;

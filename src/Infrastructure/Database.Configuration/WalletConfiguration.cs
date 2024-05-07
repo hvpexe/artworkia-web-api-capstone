@@ -225,7 +225,7 @@ public class WalletConfiguration : IEntityTypeConfiguration<Wallet>
                 AccountId = Guid.Parse("00000000-0000-0000-0000-000000000018"),
                 WithdrawMethod = WithdrawMethodEnum.Zalopay,
                 WithdrawInformation = "0365960823",
-                Balance = 0
+                Balance = 5000000
             },
 
             // account 25
@@ -235,7 +235,7 @@ public class WalletConfiguration : IEntityTypeConfiguration<Wallet>
                 AccountId = Guid.Parse("00000000-0000-0000-0000-000000000019"),
                 WithdrawMethod = WithdrawMethodEnum.Zalopay,
                 WithdrawInformation = "0365960823",
-                Balance = 0
+                Balance = 5000000
             }
         );
         #endregion

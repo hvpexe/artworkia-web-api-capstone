@@ -63,11 +63,11 @@ public class AccountConfiguration : IEntityTypeConfiguration<Account>
             new Account()
             {
                 Id = Guid.Parse("00000000-0000-0000-0000-000000000002"),
-                Username = "lamlam",
+                Username = "ngocphien",
                 Password = "A5tzNn90k1cgMCIWicwomDz/Wb1/BAWIDIVelEKhM6lHvuwh", //Matkhausieumanh123
-                Fullname = "Trúc Lam Võ",
-                Email = "lamlam@example.com",
-                Bio = "Tôi là Trúc Lam Võ, tôi là một nghệ sĩ đầy tài năng",
+                Fullname = "Ngọc Phiên",
+                Email = "ngocphien@example.com",
+                Bio = "tôi là một nghệ sĩ đầy tài năng",
                 Avatar = "https://i.pinimg.com/564x/be/85/2f/be852fd4ad1cb76b83ce962f618895bd.jpg",
                 Birthdate = DateTime.Parse("2002-10-4"),
                 Role = RoleEnum.CommonUser,
@@ -79,11 +79,11 @@ public class AccountConfiguration : IEntityTypeConfiguration<Account>
             new Account()
             {
                 Id = Guid.Parse("00000000-0000-0000-0000-000000000003"),
-                Username = "hoanganh",
+                Username = "nguyennguyen",
                 Password = "A5tzNn90k1cgMCIWicwomDz/Wb1/BAWIDIVelEKhM6lHvuwh", //Matkhausieumanh123
-                Fullname = "Đặng Hoàng Anh",
-                Email = "anhdhse160846@fpt.edu.vn",
-                Bio = "Tôi là Đặng Hoàng Anh, tôi là một nghệ sĩ đầy tài năng",
+                Fullname = "Nguyễn Nguyễn",
+                Email = "nguyennguyen@example.com",
+                Bio = "tôi là một nghệ sĩ đầy tài năng",
                 Avatar = "https://i.pinimg.com/564x/db/02/67/db02679d039a230d9a37caec679d1b3b.jpg",
                 Birthdate = DateTime.Parse("2002-10-4"),
                 Role = RoleEnum.CommonUser,
@@ -94,11 +94,11 @@ public class AccountConfiguration : IEntityTypeConfiguration<Account>
             new Account()
             {
                 Id = Guid.Parse("00000000-0000-0000-0000-000000000004"),
-                Username = "thong",
+                Username = "minhvuong",
                 Password = "A5tzNn90k1cgMCIWicwomDz/Wb1/BAWIDIVelEKhM6lHvuwh", //Matkhausieumanh123
-                Fullname = "Nguyễn Trung Thông",
-                Email = "thong@example.com",
-                Bio = "Tôi là Nguyễn Trung Thông, tôi là một nghệ sĩ đầy tài năng",
+                Fullname = "Trần Minh Vương",
+                Email = "minhvuong@example.com",
+                Bio = "tôi là một nghệ sĩ đầy tài năng",
                 Avatar = "https://i.pinimg.com/564x/6c/a3/4b/6ca34beddfbd279418c915d2258d698b.jpg",
                 Birthdate = DateTime.Parse("2002-1-4"),
                 Role = RoleEnum.CommonUser,
@@ -410,7 +410,7 @@ public class AccountConfiguration : IEntityTypeConfiguration<Account>
             {
                 Id = Guid.Parse("00000000-0000-0000-0000-000000000018"),
                 Username = "minhhuy",
-                Password = "qhtdkbvegr".Hash(),
+                Password = "sTtIwLGpc7aHdsPGLBcoewBrPUKZOWaKdWFbt5BtAWwfYM2E",
                 Fullname = "Trần Nguyễn Minh Huy",
                 Email = "minhhuy@example.com",
                 Bio = "Living and working in Japan / big fan of Key (Kagikko - 鍵っ子). A guy of social, cultural, and natural.",
@@ -423,7 +423,7 @@ public class AccountConfiguration : IEntityTypeConfiguration<Account>
             {
                 Id = Guid.Parse("00000000-0000-0000-0000-000000000019"),
                 Username = "manhkbrady",
-                Password = "qhtdkbvegr".Hash(),
+                Password = "sTtIwLGpc7aHdsPGLBcoewBrPUKZOWaKdWFbt5BtAWwfYM2E",
                 Fullname = "Mạnh",
                 Email = "manhkbrady@example.com",
                 Bio = "Nole của công ty NaiNovel - công ty game đầu hàng Việt Nam",
